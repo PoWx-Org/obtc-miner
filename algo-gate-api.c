@@ -309,6 +309,7 @@ bool register_algo_gate( int algo, algo_gate_t *gate )
     case ALGO_DEEP:          register_deep_algo          ( gate ); break;
     case ALGO_DMD_GR:        register_dmd_gr_algo        ( gate ); break;
     case ALGO_GROESTL:       register_groestl_algo       ( gate ); break;
+    case ALGO_HEAVYHASH:     register_heavyhash_algo     ( gate ); break;
     case ALGO_HEX:           register_hex_algo           ( gate ); break;
     case ALGO_HMQ1725:       register_hmq1725_algo       ( gate ); break;
     case ALGO_HODL:          register_hodl_algo          ( gate ); break;

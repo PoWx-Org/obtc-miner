@@ -84,6 +84,8 @@ cpuminer_SOURCES = \
   algo/groestl/myr-groestl.c \
   algo/groestl/aes_ni/hash-groestl.c \
   algo/groestl/aes_ni/hash-groestl256.c \
+  algo/heavyhash/heavyhash-gate.c \
+  algo/heavyhash/keccak_tiny.c \
   algo/fugue/sph_fugue.c \
   algo/hamsi/sph_hamsi.c \
   algo/hamsi/hamsi-hash-4way.c \
