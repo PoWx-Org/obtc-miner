@@ -1,5 +1,6 @@
 This file is included in the Windows binary package. Compile instructions
 for Linux and Windows can be found in RELEASE_NOTES.
+For oBTC-related information check README.md.
 
 cpuminer is a console program that is executed from a DOS or Powershell
 prompt. There is no GUI and no mouse support.
