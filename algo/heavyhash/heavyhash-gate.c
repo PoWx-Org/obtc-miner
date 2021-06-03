@@ -1,5 +1,6 @@
 #include "heavyhash-gate.h"
 #include "keccak_tiny.h"
+#include "multiply_python.h"
 
 #include <inttypes.h>
 #include <string.h>
@@ -102,20 +103,14 @@ void heavyhash(const uint_fast16_t matrix[64][64], uint8_t* pdata, size_t pdata_
 
     uint_fast16_t vector[64] __attribute__((aligned(64)));
     uint_fast16_t product[64] __attribute__((aligned(64)));
-
     sha3_256((uint8_t*) hash_first, 32, pdata, pdata_len);
-
     for (int i = 0; i < 32; ++i) {
         vector[2*i] = (hash_first[i] >> 4);
         vector[2*i+1] = hash_first[i] & 0xF;
     }
-
+    matr_uli_64x64_arr_uli_64_multiply(matrix, vector, product);
     for (int i = 0; i < 64; ++i) {
-        uint_fast16_t sum = 0;
-        for (int j = 0; j < 64; ++j) {
-            sum += matrix[i][j] * vector[j];
-        }
-        product[i] = (sum >> 10);
+        product[i] = (product[i] >> 10);
     }
 
     for (int i = 0; i < 32; ++i) {
