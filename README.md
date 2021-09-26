@@ -1,6 +1,10 @@
 oBTC Miner
 ==========
 
+If you are looking for a GPU miner, it is here https://github.com/PoWx-Org/obtc-GPU-miner/releases.
+
+-----
+
 obtc-miner is a fork supporting oBTC (Optical Bitcoin) network.
 oBTC is an experimental currency based on Bitcoin. See more on
 https://powx.org.
