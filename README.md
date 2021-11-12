@@ -58,6 +58,16 @@ RPC getwork using http:// or https://.
 GBT is YMMV.
 
 
+How to build
+------------
+
+On Ubuntu:
+
+    sudo apt-get update
+    sudo apt-get install libcurl4-openssl-dev libssl-dev
+    ./build.sh
+
+
 Errata
 ------
 
