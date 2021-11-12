@@ -42,7 +42,7 @@ static inline uint64_t xoshiro_gen(struct xoshiro_state *state) {
     return result;
 }
 
-static int compute_rank(const uint_fast16_t A[64][64])
+static int compute_rank(const uint16_t A[64][64])
 {
     double B[64][64];
     for (int i = 0; i < 64; ++i){
@@ -76,12 +76,12 @@ static int compute_rank(const uint_fast16_t A[64][64])
     return rank;
 }
 
-static inline bool is_full_rank(const uint_fast16_t matrix[64][64])
+static inline bool is_full_rank(const uint16_t matrix[64][64])
 {
     return compute_rank(matrix) == 64;
 }
 
-static inline void generate_matrix(uint_fast16_t matrix[64][64], struct xoshiro_state *state) {
+static inline void generate_matrix(uint16_t matrix[64][64], struct xoshiro_state *state) {
     do {
         for (int i = 0; i < 64; ++i) {
             for (int j = 0; j < 64; j += 16) {
@@ -94,14 +94,14 @@ static inline void generate_matrix(uint_fast16_t matrix[64][64], struct xoshiro_
     } while (!is_full_rank(matrix));
 }
 
-void heavyhash(const uint_fast16_t matrix[64][64], uint8_t* pdata, size_t pdata_len, uint8_t* output)
+void heavyhash(const uint16_t matrix[64][64], uint8_t* pdata, size_t pdata_len, uint8_t* output)
 {
     uint8_t hash_first[32] __attribute__((aligned(64)));
     uint8_t hash_second[32] __attribute__((aligned(64)));
     uint8_t hash_xored[32] __attribute__((aligned(64)));
 
-    uint_fast16_t vector[64] __attribute__((aligned(64)));
-    uint_fast16_t product[64] __attribute__((aligned(64)));
+    uint16_t vector[64] __attribute__((aligned(64)));
+    uint16_t product[64] __attribute__((aligned(64)));
 
     sha3_256((uint8_t*) hash_first, 32, pdata, pdata_len);
 
@@ -111,7 +111,7 @@ void heavyhash(const uint_fast16_t matrix[64][64], uint8_t* pdata, size_t pdata_
     }
 
     for (int i = 0; i < 64; ++i) {
-        uint_fast16_t sum = 0;
+        uint16_t sum = 0;
         for (int j = 0; j < 64; ++j) {
             sum += matrix[i][j] * vector[j];
         }
@@ -129,7 +129,7 @@ void heavyhash(const uint_fast16_t matrix[64][64], uint8_t* pdata, size_t pdata_
 }
 
 int scanhash_heavyhash( struct work *work, uint32_t max_nonce,
-                    uint64_t *hashes_done, struct thr_info *mythr ) 
+                    uint64_t *hashes_done, struct thr_info *mythr )
 {
     uint32_t edata[20] __attribute__((aligned(64)));
     uint32_t hash[8] __attribute__((aligned(64)));
@@ -143,7 +143,7 @@ int scanhash_heavyhash( struct work *work, uint32_t max_nonce,
     const int thr_id = mythr->id;
     const bool bench = opt_benchmark;
 
-    uint_fast16_t matrix[64][64] __attribute__((aligned(64)));
+    uint16_t matrix[64][64] __attribute__((aligned(64)));
     struct xoshiro_state state;
 
     mm128_bswap32_80( edata, pdata );
@@ -170,7 +170,7 @@ int scanhash_heavyhash( struct work *work, uint32_t max_nonce,
 
     *hashes_done = n - first_nonce;
     pdata[19] = n;
-    return 0;   
+    return 0;
 }
 
 int scanhash_generic_exampletest( struct work *work, uint32_t max_nonce,
